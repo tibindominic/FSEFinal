@@ -1,0 +1,33 @@
+<nav class="navbar fixed-top navbar-light bg-light clearfix">
+  <a class="navbar-brand">Task Manager</a>
+</nav>
+<div class="tabs">
+  <ngb-tabset #ngbTab="ngbTabset">
+    <ngb-tab id="add-project" title="Add Project">
+      <ng-template ngbTabContent>
+        <app-add-project></app-add-project>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab id="add-tab" title="Add Task">
+      <ng-template ngbTabContent>
+        <add-task></add-task>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab id="add-user" title="Add User">
+      <ng-template ngbTabContent>
+        <app-add-user></app-add-user>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab id="view-task" title="View Task">
+      <!-- <ng-template ngbTabTitle><b>Fancy</b> title</ng-template> -->
+      <ng-template ngbTabContent>
+        <view-task></view-task>
+      </ng-template>
+    </ngb-tab>
+<div class="clearfix"></div>
+  </ngb-tabset>
+<div class="clearfix"></div>
+</div>
+<!-- <p>
+  <button class="btn btn-outline-primary" (click)="t.select('tab-selectbyid2')">Selected tab with "tab-selectbyid2" id</button>
+</p> -->

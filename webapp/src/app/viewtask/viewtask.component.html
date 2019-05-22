@@ -1,0 +1,80 @@
+<div class="col-10 mx-auto mt-5">
+    <form #searchForm="ngForm">
+        <div class="form-group row">
+            <div class="col">
+                <label for="inputEmail3" class="col-sm-2 col-form-label  pull-left">Task</label>
+                <div class="col-sm-10 pull-left">
+                    <input type="text" class="form-control" placeholder="Task Name" name="name" [(ngModel)]="name" >
+                </div>
+            </div>
+            <div class="col">
+                <label for="inputPassword3" class="col-sm-2 col-form-label  pull-left">Parent Task</label>
+                <div class="col-sm-10 pull-left">
+                    <input type="text" class="form-control" placeholder="Parent Task" name="parent" [(ngModel)]="parentTask" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="inputEmail3" class="col-sm-4 col-form-label  pull-left">Priority From</label>
+                <div class="col-sm-8 pull-left">
+                    <input type="number" min="1" max="30" class="form-control" placeholder="Priority From"  name="Priority" [(ngModel)]="priority">
+                </div>
+            </div>
+            <div class="col">
+                <label for="inputPassword3" class="col-sm-4 col-form-label  pull-left">Priority To</label>
+                <div class="col-sm-8 pull-left">
+                    <input type="number" min="1" max="30" class="form-control" placeholder="Priority To" name="PriorityMax" [(ngModel)]="priorityMax">
+                </div>
+            </div>
+            <div class="col">
+                <label for="inputEmail3" class="col-sm-4 col-form-label  pull-left">Start Date</label>
+                <div class="col-sm-8 pull-left">
+                    <div class="input-group">
+                        <input class="form-control" name="stDate" [(ngModel)]="stDate" placeholder="yyyy-mm-dd"
+                            name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <label for="inputPassword3" class="col-sm-4 col-form-label  pull-left">End Date</label>
+                <div class="col-sm-8 pull-left">
+                    <div class="input-group">
+                        <input class="form-control" name="enDate" [(ngModel)]="enDate" placeholder="yyyy-mm-dd"
+                            name="dp2" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary fa fa-calendar" (click)="d2.toggle()" type="button"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="table table-fixed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">TASK NAME</th>
+                <th scope="col">PARENT</th>
+                <th scope="col">PRIORITY</th>
+                <th scope="col">START DATE</th>
+                <th scope="col">END DATE</th>
+                <th scope="col">EDIT</th>
+                <th scope="col">END</th>
+            </tr>
+        </thead>
+        <tbody class="tableBody">
+            <tr *ngFor="let task of commonService.allTasks | taskFilter : name : parentTask : priority: priorityMax">
+                <td>{{task.name}}</td>
+                <td>{{task.parentTask}}</td>                
+                <td>{{task.priority}}</td>                
+                <td>{{task.stDate}}</td>                
+                <td>{{task.enDate}}</td>                
+                <td><button class="btn btn-sm btn-primary" [disabled]="task.status!=='active'" (click)="editTask(task)">Edit</button></td>
+                <td><button class="btn btn-sm btn-danger" [disabled]="task.status!=='active'" (click)="commonService.addorUpdateTask(task, 'end')">End Task</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

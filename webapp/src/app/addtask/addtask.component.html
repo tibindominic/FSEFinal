@@ -1,0 +1,46 @@
+<div class="col-4 mx-auto mt-5">
+    <form #addForm="ngForm">
+        <div class="form-group">
+            <label>Task</label>
+            <input type="text" class="form-control" [(ngModel)]="commonService.task.name" name="name" placeholder="Enter task name here">
+        </div>
+        <div class="form-group">
+            <label>Priority</label>
+            <div class="row px-3">
+                <input type="range" min="1" max="30" style="width: 90%;" name="priority" [(ngModel)]="commonService.task.priority" name="priority"
+                    class="slider" id="myRange">
+                <span class="text-center" style="width: 10%;margin-top: -5px;">{{commonService.task.priority}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Parent Task</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="parent" (change)="setPaarentTask($event)" >
+                <option>None</option>
+                <option *ngFor="let task of commonService.allTasks" value={{task.name}} [selected]="task.name === commonService.task.parentTask" [hidden]="task.name ==='None'">{{task.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Start Date</label>
+            <div class="input-group">
+                <input class="form-control" name="stDate" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>End Date</label>
+            <div class="input-group">
+                <input class="form-control" name="enDate" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary fa fa-calendar" (click)="d2.toggle()" type="button"></button>
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            <button class="btn btn-primary mx-2" (click)="addorUpdateTask(commonService.currentTask)">{{commonService.currentTask=='add'? 'Add Task' : 'Update Task'}}</button>
+            <button class="btn btn-primary mx-2" *ngIf="commonService.currentTask=='add'" (click)="this.addForm.reset();reset()">Reset</button>
+            <button class="btn btn-primary mx-2" *ngIf="commonService.currentTask=='update'" (click)="this.addForm.reset();reset();commonService.switchTab('view-task');commonService.currentTask = 'add';">Cancel</button>
+        </div>
+    </form>
+</div>
